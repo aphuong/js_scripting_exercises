@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Javascript Exercises</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+  <script type="text/javascript">
+  $(document).ready(function(){
+
+// for loop
+  var fruits = ["oranges", "apples", "bananas"];
+  var veggies = ["kale", "lettuce", "cabbage"];
+  var healthy = [fruits, veggies];
+
+  for (i = 0; i < healthy[0].length; i++){
+    console.log(healthy[0][i]);
+  }
+
+  for (i = 0; i < healthy[1].length; i++){
+    console.log(healthy[1][i]);
+  }
+
+
+// while loop
+  x = 99
+  while (x >= 0){
+    console.log(x + " bottles of root beer on the wall, " + x + " bottles of root ... take one down, pass it around ");
+    x--;
+  }
+
+
+// variable scope
+  var a = 10
+
+  function times2(a){
+    a = a * 2
+    console.log("Local variable " + a);
+  }
+
+  times2(a);
+  console.log("Global variable " + a);
+
+// functions
+
+// 1. palindrome
+  function is_palindrome(word){
+    var arr = word.split("");
+    var rev = word.split("").reverse();
+
+    console.log(rev);
+    console.log(arr);
+    console.log(arr.length);
+
+    function check_same(){
+      for (var i = 0; i < arr.length; i++) {
+        if (arr[i]===rev[i]){
+          answer = console.log("The word " + word + " is a palindrome");
+          } else {
+            answer =  console.log("The word " + word + " is not a palindrome.");
+          }
+            return answer;
+            i++;
+      }
+    }
+    check_same();
+  }
+  is_palindrome("car");
+
+
+// 2. checks vowels
+
+var vowels = ["a", "e", "i", "o", "u"];
+
+    function hasVowels(w){
+      w = w.toLowerCase();
+      w_arr = w.split("");
+      console.log(w_arr);
+
+      for (i = 0; i < w.length; i++){
+        var letter = w_arr[i]
+
+        for (n = 0; n < vowels.length; n++){
+          var vowel = vowels[n]
+          // console.log(letter, " + ", vowel);
+
+           if (letter == vowel){
+            // console.log(letter + " is a vowel");
+            return true;
+          } else {
+            // console.log(letter + " is not a vowel");
+          }
+        }
+      }
+      return false;
+
+    }
+
+    // Debugging tests!
+    console.log("should be true -> ", hasVowels("anh"));
+    console.log("should be true -> ", hasVowels("jesse"));
+    console.log("should be false -> ", hasVowels("plplplplpl plp lp"));
+    console.log("should be true -> ", hasVowels("s am"));
+    console.log("should be true -> ", hasVowels("Anh"));
+    console.log("should be false -> ", hasVowels("vJJJccc"));
+    console.log("should be false -> ", hasVowels("kjkjkjkkkkkjkjkjkjkjkjkjkjkjkkkjkj"));
+
+
+  // 3. textbox alert
+
+    $("form").submit(function(event){
+      event.preventDefault();
+      var your_name = $("#name").val();
+      console.log(your_name);
+      alert("Hello " + your_name);
+    })
+
+  // 4. validate date input
+  
+  //define expected date format
+  var myDate = prompt("Type a date in the following format: mm/dd/yyyy");//"2/29/2012";
+  //break string into array where i can divide month, day and year
+  myDate = myDate.split("/");
+  console.log(myDate);
+ 
+  var d = new Date();
+  var currentYear = d.getFullYear();
+  //incorrect date formats
+  //09-10-2014, Sept. 10 2014.
+  //make array of leap years from 1900
+  var leapYears = [];
+  for(var i = 1900; i <= currentYear; i++){
+    if(leapYear(i)){
+      leapYears.push(i);
+      console.log(i)
+    }
+  }
+  //make array of months' day count
+  var dayCount = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+ 
+  console.log(leapYears);
+  console.log("-----------");
+  console.log(myDate[2].length);
+  // alert(leapYears.indexOf(myDate[2]));
+  
+  if(myDate[2].length == 4){
+    if(myDate[2]>1900 && myDate[2] <= currentYear){
+      if(leapYears.indexOf(myDate[2]) != -1){
+        dayCount[1] = 29;
+      }else{
+        dayCount[1] = 28;
+      }
+    }else{
+      console.log("Sorry, you can't use future years");
+    }
+  }else{
+    console.log("Incorrect year format")
+  }
+ 
+  console.log("leap year feb daycount: "+ dayCount[1]);
+  console.log("-----------");
+ 
+  //check that month is not less than 0 or more than 12
+  if(myDate[0] > 0 && myDate[0] < 13){
+    console.log("Correct Month Number!!! Checking day next");
+ 
+    //check the month and make sure the day number does not exceed the month's day count or that the day is less than 0
+    var monthNumber = parseInt(myDate[0]);
+    var dayLimit = dayCount[monthNumber - 1];
+    var dayNumber = myDate[1];
+ 
+    console.log("Month: " +myDate[0]);
+    console.log("Month: " + monthNumber);
+    console.log("Days in this month: "+ dayLimit);
+    console.log(dayNumber);
+ 
+    if(dayNumber > 0 && dayNumber <= dayLimit){
+      console.log("Correct day Number");
+ 
+      //check that the year has four numbers
+      console.log(typeof(myDate[2]));
+      console.log(myDate[2].length); //4 is correct number
+      //if(myDate[2].length > 0 && myDate[2].length < 5){
+      if(myDate[2].length == 4){
+        console.log("Year has correct format");
+        
+        console.log(currentYear);
+        //check that the year is leap year or not
+        if(leapYears.indexOf(myDate[2])){
+          console.log("You added a leap year");
+        }else{
+          console.log("Not a leap year");
+        }
+        //check if the year is between 1900 and current year - dynamically
+ 
+        if(myDate[2]>1900 && myDate[2] <= currentYear){
+          console.log("Perfect!");
+          //alert("well done!");
+        }else{
+          console.log("Sorry, you can't use future years");
+        }
+      }else{
+        console.log("Incorrect year format");
+      }
+      
+    }else{
+      console.log("Incorrect day number, please try again");
+    }
+ 
+  }else{
+    console.log("Incorrect Month Number");
+  }
+ 
+  
+ 
+  function leapYear(year)
+  {
+    return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
+  }
+ 
+  console.log(leapYear(2012));
+
+
+  // 5. find frequent item in array
+
+    var ary = ["a", "a", "w", "e"];
+    var max = ary[0];
+    i = 0
+
+    for (i in ary){
+
+      if (ary[i] == max){
+        max = ary[i]
+
+      } else{
+        max = max
+
+      }
+      i++
+    }
+
+    console.log(max);
+
+        
+
+
+
+  });
+  </script>
+</head>
+<body>
+
+<form>
+  Name: <input type="text" id="name">
+  <input type="submit" value="Submit">
+</form>
+  
+</body>
+</html>
