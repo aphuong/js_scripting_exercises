@@ -1,0 +1,22 @@
+html { 
+  background: url(../js.png) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  
+}
+
+body {
+  font-family: Helvetica;
+  line-height: 20px;
+  /*margin: 20px;*/
+}
+
+.title {
+  font-size: 25px;
+}
+
+.subtitle {
+  font-size: 20px;
+}
